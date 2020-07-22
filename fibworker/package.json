@@ -1,0 +1,25 @@
+{
+  "name": "fibworker",
+  "version": "1.0.0",
+  "description": "Given an index, worker calculates the corresponding fibonacci number",
+  "main": "fib.js",
+  "scripts": {
+    "start": "webpack",
+    "test": "node_modules/.bin/tape -r @babel/register test/**/*.test.js",
+    "build": "webpack --mode=production"
+  },
+  "author": "fpezzati@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/register": "^7.10.5",
+    "tape": "^5.0.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-node-externals": "^2.5.0"
+  }
+}
