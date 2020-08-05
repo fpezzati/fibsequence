@@ -1,7 +1,7 @@
 {
-  "name": "fibworker",
+  "name": "server",
   "version": "1.0.0",
-  "description": "Given an index, worker calculates the corresponding fibonacci number",
+  "description": "Boundary web component who handles requests about fib calculator.",
   "main": "index.js",
   "scripts": {
     "start": "webpack",
@@ -11,6 +11,11 @@
   "author": "fpezzati@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.4",
+    "express": "^4.17.1",
+    "pg": "^7.4.3",
+    "pg-native": "^3.0.0",
     "redis": "^2.8.0"
   },
   "devDependencies": {
