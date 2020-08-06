@@ -1,6 +1,7 @@
 const m = require('mithril');
 import model from './model';
 import fibIndexSubmit from './ui/fibIndexSubmit';
+import fibSeenIndexes from './ui/fibSeenIndexes';
 import Eventbus from './eventbus';
 
 var app = (function() {
@@ -15,7 +16,10 @@ var app = (function() {
       fibIndexSubmit.eventbus = this.eventbus;
     },
     view: function(vnode) {
-      return m(fibIndexSubmit, model);
+      return m('div', [
+        m(fibIndexSubmit, model),
+        m(fibSeenIndexes, model)
+      ]);
     }
   }
 })();

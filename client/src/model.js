@@ -1,5 +1,5 @@
 export default {
   userGivenIndex: 0,
-  seenIndexes: [],
+  fibSeenIndexes: [],
   calculatedValues: []
 };
