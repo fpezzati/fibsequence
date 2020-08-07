@@ -2,8 +2,7 @@ const m = require('mithril');
 var fibIndexSubmit = (function() {
   return {
     sendfibIndexSubmitToCompute: function(userGivenIndex) {
-      console.log('sendfibIndexSubmitToCompute ' + userGivenIndex);
-      console.log('fibIndexSubmit eventbus ready ' + (typeof this.eventbus !== 'undefined'));
+      this.eventbus.publish({ type: 'computeFibSequence', fibIndex: userGivenIndex });
     },
 
     view: function(vnode) {

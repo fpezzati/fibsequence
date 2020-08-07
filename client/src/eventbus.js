@@ -10,18 +10,21 @@ class Eventbus {
 
   subscribe(handler) {
     this.handlers[handler.type] = handler.handle;
+    return this;
   }
 
   unsubscribe(handler) {
     this.handlers.splice(handlers.indexOf(handler.type), 1);
+    return this;
   }
 
   publish(event) {
     if(!(typeof this.handlers[event.type] === "undefined")) {
       this.handlers[event.type](event, this.model);
     } else {
-      console.log("No handler has been subscribe to handle event type: "+event.type);
+      console.log("No handler subscribes to event type: "+event.type);
     }
+    return this;
   }
 }
 export default Eventbus;

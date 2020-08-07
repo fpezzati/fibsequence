@@ -10,8 +10,7 @@ var fibSeenIndexes = (function(){
               return m('span', seenIndex)
             })
           )
-        :
-          m('div', 'No seen indexes for now :(')
+        : m('div', 'No seen indexes for now :(')
       ]);
     }
   }
