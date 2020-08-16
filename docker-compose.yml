@@ -11,14 +11,16 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./nginx
-      ports:
-        - '8000:80'
+    ports:
+      - '8000:80'
   fibserver:
     build:
       dockerfile: Dockerfile.dev
       context: ./server
     volumes:
       - './server:/app'
+    ports:
+      - '8080:8080'
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -27,12 +29,14 @@ services:
       - PGPORT=5432
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
-  client:
+  fibclient:
     build:
       dockerfile: Dockerfile.dev
       context: ./client
     volumes:
       - './client:/app'
+    ports:
+      - '9000:9000'
   fibworker:
     build:
       dockerfile: Dockerfile.dev

@@ -1,12 +1,13 @@
-const keys = require('./keys.js');
-const server = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-cors.use(cors());
-cors.use(bodyParser.json());
 
+const keys = require('./keys.js');
+const bodyParser = require('body-parser');
 const express = require('express');
+const cors = require('cors');
+
 const httpsrv = express();
+/*
+httpsrv.use(cors());
+httpsrv.use(bodyParser.json());
 
 var pgStatus, redisStatus, httpsrvStatus;
 
@@ -37,7 +38,7 @@ const redisClient = redis.createClient({
 const redisPublisher = redisClient.duplicate();
 
 httpsrv.get("/", (req, res) => {
-  req.send("healthly.");
+  res.send("healthly.");
 });
 
 httpsrv.get("/values/all", async (req, res) => {
@@ -62,7 +63,7 @@ httpsrv.post("/values", async (req, res) => {
 
   res.send({ working: true});
 });
-
+*/
 httpsrv.listen(8080, function() {
   console.log("server started.");
 });
