@@ -13,5 +13,6 @@ module.exports = {
     new webpack.SourceMapDevToolPlugin({
       filename: 'index.js.map'
     })
-  ]
+  ],
+  externals: [nodeExternals()]
 };
