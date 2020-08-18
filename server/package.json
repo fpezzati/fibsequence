@@ -8,7 +8,8 @@
     "hotreload:run": "webpack --watch",
     "hotreload:build": "nodemon \"./bin/index.js\" --watch \"./bin\"",
     "test": "node_modules/.bin/tape -r @babel/register test/**/*.test.js",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "debug": "webpack --mode=development --watch && node --inspect ./bin/index.js"
   },
   "author": "fpezzati@gmail.com",
   "license": "ISC",

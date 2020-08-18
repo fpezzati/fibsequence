@@ -3,12 +3,13 @@ const keys = require('./keys.js');
 const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
+//const redis = require('redis');
 
 const httpsrv = express();
-/*
 httpsrv.use(cors());
 httpsrv.use(bodyParser.json());
 
+/*
 var pgStatus, redisStatus, httpsrvStatus;
 
 const {Pool} = require('pg');
@@ -36,20 +37,27 @@ const redisClient = redis.createClient({
   }
 });
 const redisPublisher = redisClient.duplicate();
+*/
 
 httpsrv.get("/", (req, res) => {
   res.send("healthly.");
 });
 
 httpsrv.get("/values/all", async (req, res) => {
+  /*
   var result = await pgClient.query('SELECT * FROM values');
   res.send(result.rows);
+  */
+  res.send("/values/all");
 });
 
 httpsrv.get("/values/current", async (req, res) => {
+  /*
   redisClient.hgetall('values', (err, values) => {
-    req.send(values);
+    res.send(values);
   });
+  */
+  res.send("/values/current");
 });
 
 httpsrv.post("/values", async (req, res) => {
@@ -63,7 +71,7 @@ httpsrv.post("/values", async (req, res) => {
 
   res.send({ working: true});
 });
-*/
+
 httpsrv.listen(8080, function() {
   console.log("server started.");
 });
