@@ -4,17 +4,9 @@
   "description": "Boundary web component who handles requests about fib calculator.",
   "main": "index.js",
   "scripts": {
-    "start_old": "npm-run-all hotreload:build hotreload:run",
-    "hotreload:run": "webpack --watch",
-    "hotreload:build": "nodemon \"./bin/index.js\" --watch \"./bin\"",
-    "hotreload:debug": "nodemon \"./bin/index.js\" --inspect --watch \"./bin\"",
+    "start": "webpack --watch",
     "test": "node_modules/.bin/tape -r @babel/register test/**/*.test.js",
-    "build": "webpack --mode=production",
-    "debug": "webpack --mode=development --watch && node ./bin/index.js --inspect",
-    "debug1": "npm-run-all hotreload:build hotreload:debug",
-    "debug2": "concurrently \"webpack --watch && nodemon --inspect ./bin/index.js\"",
-    "debug3": "webpack --mode=development --watch && nodemon \"./bin/index.js\" --watch \"./bin\"",
-    "start": "webpack --watch"
+    "build": "webpack --mode=production"
   },
   "author": "fpezzati@gmail.com",
   "license": "ISC",
