@@ -42,20 +42,16 @@ httpsrv.get("/", (req, res) => {
 });
 
 httpsrv.get("/values/all", async (req, res) => {
-  /*
   var result = await pgClient.query('SELECT * FROM values');
   res.send(result.rows);
-  */
-  res.send("/values/all :)");
+//  res.send("/values/all :)");
 });
 
 httpsrv.get("/values/current", async (req, res) => {
-  /*
   redisClient.hgetall('values', (err, values) => {
     res.send(values);
   });
-  */
-  res.send("/values/current..");
+//  res.send("/values/current..");
 });
 
 httpsrv.post("/values", async (req, res) => {
