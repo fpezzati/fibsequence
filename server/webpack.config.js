@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 module.exports = {
   name: 'server',
   target: 'node',
@@ -12,6 +13,9 @@ module.exports = {
   plugins: [
     new webpack.SourceMapDevToolPlugin({
       filename: 'index.js.map'
+    }),
+    new NodemonPlugin({
+      nodeArgs: ['--inspect']
     })
   ],
   externals: [nodeExternals()]
