@@ -25,7 +25,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - PGUSER=postgres
+      - PGUSER=postgres_user
       - PGHOST=postgres
       - PGPORT=5432
       - PGDATABASE=postgres
@@ -34,6 +34,8 @@ services:
       - redis
       - postgres
       - fibworker
+    ports:
+      - '9229:9229'
   fibclient:
     build:
       dockerfile: Dockerfile.dev
@@ -46,3 +48,5 @@ services:
       context: ./fibworker
     volumes:
       - './fibworker:/app'
+    ports:
+      - '9230:9229'

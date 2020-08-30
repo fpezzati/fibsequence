@@ -11,6 +11,8 @@ httpsrv.use(bodyParser.json());
 
 var pgStatus, redisStatus, httpsrvStatus;
 
+console.log('+++fibserver, keys: ' + JSON.stringify(keys));
+
 const {Pool} = require('pg');
 const pgClient = new Pool({
   user: keys.pgUser,
@@ -44,14 +46,12 @@ httpsrv.get("/", (req, res) => {
 httpsrv.get("/values/all", async (req, res) => {
   var result = await pgClient.query('SELECT * FROM values');
   res.send(result.rows);
-//  res.send("/values/all :)");
 });
 
 httpsrv.get("/values/current", async (req, res) => {
   redisClient.hgetall('values', (err, values) => {
     res.send(values);
   });
-//  res.send("/values/current..");
 });
 
 httpsrv.post("/values", async (req, res) => {
@@ -63,7 +63,7 @@ httpsrv.post("/values", async (req, res) => {
   redisPublisher.publish('insert', requestedIndex);
   pgClient.query('INSERT INTO values (number) VALUES ($1)', [requestedIndex]);
 
-  res.send({ working: true});
+  res.send({ working: true });
 });
 
 httpsrv.listen(8080, function() {
