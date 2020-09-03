@@ -11,6 +11,7 @@ const redisClient = redis.createClient({
 const redisSubClient = redisClient.duplicate();
 
 redisSubClient.on('message', function(channel, message) {
+  console.log('incoming index to compute: ' + message);
   redisClient.hset('values', message, fib.getNumberAt(parseInt(message)));
 });
 redisSubClient.subscribe('insert');
