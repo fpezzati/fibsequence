@@ -50,3 +50,5 @@ services:
       - './fibworker:/app'
     ports:
       - '9230:9229'
+    depends_on:
+      - redis

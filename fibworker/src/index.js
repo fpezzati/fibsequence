@@ -1,6 +1,9 @@
 const keys = require('./keys.js');
 const redis = require('redis');
 const fib = require('./fib.js');
+
+console.log('fibworker env: ' + JSON.stringify(keys));
+
 const redisClient = redis.createClient({
   host: keys.redisHost,
   port: keys.redisPort,

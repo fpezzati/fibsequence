@@ -11,7 +11,7 @@ httpsrv.use(bodyParser.json());
 
 var pgStatus, redisStatus, httpsrvStatus;
 
-console.log('+++fibserver, keys: ' + JSON.stringify(keys));
+console.log('fibserver env: ' + JSON.stringify(keys));
 
 const {Pool} = require('pg');
 const pgClient = new Pool({
@@ -45,6 +45,7 @@ httpsrv.get("/", (req, res) => {
 
 httpsrv.get("/values/all", async (req, res) => {
   var result = await pgClient.query('SELECT * FROM values');
+  console.log('result: ' + JSON.stringify(result));
   res.send(result.rows);
 });
 
