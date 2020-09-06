@@ -44,18 +44,22 @@ httpsrv.get("/", (req, res) => {
 });
 
 httpsrv.get("/values/all", async (req, res) => {
+  console.log('fibserver/values/all req.body: ' + JSON.stringify(req.body));
   var result = await pgClient.query('SELECT * FROM values');
-  console.log('result: ' + JSON.stringify(result));
+  console.log('fibserver/values/all query result: ' + JSON.stringify(result));
   res.send(result.rows);
 });
 
 httpsrv.get("/values/current", async (req, res) => {
+  console.log('fibserver/values/current req.body: ' + JSON.stringify(req.body));
   redisClient.hgetall('values', (err, values) => {
+    console.log('fibserver/values/current hgetall result: ' +JSON.stringify(values));
     res.send(values);
   });
 });
 
 httpsrv.post("/values", async (req, res) => {
+  console.log('fibserver/values req.body: ' + JSON.stringify(req.body));
   var requestedIndex = req.body.index;
   if(parseInt(requestedIndex) > 100) {
     return res.status(422).send('Invalid index (bigger than 100)');
