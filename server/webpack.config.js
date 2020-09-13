@@ -15,7 +15,7 @@ module.exports = {
       filename: 'index.js.map'
     }),
     new NodemonPlugin({
-      nodeArgs: ['--inspect']
+      nodeArgs: ['--inspect=0.0.0.0:9229']
     })
   ],
   externals: [nodeExternals()]

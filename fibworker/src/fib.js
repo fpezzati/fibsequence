@@ -6,6 +6,7 @@ export default {
   },
 
   getNumberAt: function(index) {
+    console.log('fib.getNumberAt index: ' + index);
     if(!(typeof this.fibNumbers[index] === 'undefined')) return this.fibNumbers[index];
     var result = this.sumTwoStrings(this.getNumberAt(index-2), this.getNumberAt(index-1), '0')
     this.fibNumbers[index] = result;

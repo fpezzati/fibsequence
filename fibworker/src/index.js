@@ -1,12 +1,13 @@
-const keys = require('./keys.js');
 const redis = require('redis');
-const fib = require('./fib.js');
+import fib from '../src/fib.js';
 
-console.log('fibworker env: ' + JSON.stringify(keys));
+console.log('fib is ok: ' + !(fib === 'undefined'));
+console.log('fibworker process.env.REDIS_HOST: ' + process.env.REDIS_HOST);
+console.log('fibworker process.env.REDIS_PORT: ' + process.env.REDIS_PORT);
 
 const redisClient = redis.createClient({
-  host: keys.redisHost,
-  port: keys.redisPort,
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
   retry_strategy: function(options) {
     return 1000;
   }
@@ -14,7 +15,7 @@ const redisClient = redis.createClient({
 const redisSubClient = redisClient.duplicate();
 
 redisSubClient.on('message', function(channel, message) {
-  console.log('incoming index to compute: ' + message);
+  console.log('fibworker incoming index to compute: ' + message);
   redisClient.hset('values', message, fib.getNumberAt(parseInt(message)));
 });
 redisSubClient.subscribe('insert');
