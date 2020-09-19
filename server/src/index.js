@@ -8,6 +8,36 @@ const httpsrv = express();
 httpsrv.use(cors());
 httpsrv.use(bodyParser.json());
 
+function connectToPostgres(pool, retryAfterMilliseconds = 5000) {
+  console.log('Connecting to database at host: ' + pgPool.options.host + ', with options: ' + JSON.stringify(pgPool.options) + '.');
+  pgPool.connect()
+    .then(res => {
+      pgPool.query('CREATE TABLE IF NOT EXISTS values (number INT)')
+        .then(res => {
+          console.log('Table values created');
+        })
+        .catch((error) => {
+          console.error('ERROR:PG:creating table values.');
+          pgStatus = error;
+        });
+        pgStatus = false;
+        return;
+    })
+    .catch(err => {
+      console.error('ERROR:PG:connecting at host: ' + pgPool.options.host + '.');
+      console.error(err);
+      pgStatus = err;
+      retryAfterMilliseconds = retryAfterMilliseconds * 2;
+      if(retryAfterMilliseconds > 3600000) {
+        retryAfterMilliseconds = 3600000;
+      }
+      console.log('fibserver will attempt a new connection in ' + retryAfterMilliseconds/1000 + ' seconds.');
+      setTimeout(() => {
+        connectToPostgres(pool, retryAfterMilliseconds)
+      }, retryAfterMilliseconds);
+    });
+}
+
 var pgStatus, redisStatus, httpsrvStatus;
 
 const { Pool } = require('pg');
@@ -26,23 +56,7 @@ pgPool.on('error', (error, client) => {
   pgStatus = error;
 });
 
-console.log('Connecting to database at host: ' + pgPool.options.host + ', with options: ' + JSON.stringify(pgPool.options) + '.');
-pgPool.connect()
-  .then(res => {
-    pgPool.query('CREATE TABLE IF NOT EXISTS values (number INT)')
-      .then(res => {
-        console.log('Table values created');
-      })
-      .catch((error) => {
-        console.error('ERROR:PG:creating table values.');
-        pgStatus = error;
-      });
-  })
-  .catch(err => {
-    console.error('ERROR:PG:connecting at host: ' + pgPool.options.host + '.');
-    console.error(err);
-    pgStatus = err;
-  });
+connectToPostgres(pgPool);
 
 const redisClient = redis.createClient({
   host: process.env.REDIS_HOST,
