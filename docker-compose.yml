@@ -6,7 +6,7 @@ services:
       - POSTGRES_USER=postgres_user
       - POSTGRES_PASSWORD=postgres_password
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres_user"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -32,16 +32,16 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - PGUSER=postgres_user
+      - PGPASSWORD=postgres_password
       - PGHOST=postgres
       - PGPORT=5432
       - PGDATABASE=postgres
-      - PGPASSWORD=postgres_password
     depends_on:
       - redis
       - postgres
       - fibworker
     ports:
-      - '9229'
+      - '9229:9229'
   fibclient:
     build:
       dockerfile: Dockerfile.dev

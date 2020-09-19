@@ -21,7 +21,22 @@ const pgPool = new Pool({
   connectionTimeoutMillis: 5000
 });
 
-console.log('Connecting to database.');
+debugger;
+
+console.log('Connecting to database at host: ' + process.env.PGHOST + ', with options: ' + JSON.stringify(pgPool.options) + '.');
+pgPool.on('connect', () => {
+  pgPool.query('CREATE TABLE IF NOT EXISTS values (number INT)')
+    .catch((error) => {
+      console.error('ERROR:PG:creating table values.');
+      pgStatus = error;
+    });
+});
+
+pgPool.on('error', (error, client) => {
+  console.error('ERROR:PG', error);
+  pgStatus = error;
+});
+/*
 pgPool.connect((error1, client, release) => {
   if(error1) {
     console.error('ERROR:PG:CONNECTING', error1.stack);
@@ -39,7 +54,7 @@ pgPool.connect((error1, client, release) => {
     });
   }
 });
-
+*/
 const redisClient = redis.createClient({
   host: process.env.REDIS_HOST,
   port: process.env.REDIS_PORT,
