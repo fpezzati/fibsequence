@@ -21,40 +21,29 @@ const pgPool = new Pool({
   connectionTimeoutMillis: 5000
 });
 
-debugger;
-
-console.log('Connecting to database at host: ' + process.env.PGHOST + ', with options: ' + JSON.stringify(pgPool.options) + '.');
-pgPool.on('connect', () => {
-  pgPool.query('CREATE TABLE IF NOT EXISTS values (number INT)')
-    .catch((error) => {
-      console.error('ERROR:PG:creating table values.');
-      pgStatus = error;
-    });
-});
-
 pgPool.on('error', (error, client) => {
   console.error('ERROR:PG', error);
   pgStatus = error;
 });
-/*
-pgPool.connect((error1, client, release) => {
-  if(error1) {
-    console.error('ERROR:PG:CONNECTING', error1.stack);
-    pgStatus = error1.stack;
-  } else {
-    console.log('Connected to: ' + process.env.PGHOST + '.');
-    client.query('CREATE TABLE IF NOT EXISTS values (number INT)', (error2, response)=>{
-      if(error2) {
-        console.error('ERROR:PG:CREATE_TABLE', error2.stack);
-        pgStatus = error2.stack;
-      }
-      if(response) {
-        console.log('table values created.');
-      }
-    });
-  }
-});
-*/
+
+console.log('Connecting to database at host: ' + pgPool.options.host + ', with options: ' + JSON.stringify(pgPool.options) + '.');
+pgPool.connect()
+  .then(res => {
+    pgPool.query('CREATE TABLE IF NOT EXISTS values (number INT)')
+      .then(res => {
+        console.log('Table values created');
+      })
+      .catch((error) => {
+        console.error('ERROR:PG:creating table values.');
+        pgStatus = error;
+      });
+  })
+  .catch(err => {
+    console.error('ERROR:PG:connecting at host: ' + pgPool.options.host + '.');
+    console.error(err);
+    pgStatus = err;
+  });
+
 const redisClient = redis.createClient({
   host: process.env.REDIS_HOST,
   port: process.env.REDIS_PORT,
@@ -98,14 +87,15 @@ httpsrv.post("/values", async (req, res) => {
   }
   redisClient.hset('values', requestedIndex, 'N.A.');
   redisPublisher.publish('insert', requestedIndex);
-  pgPool.query('INSERT INTO values (number) VALUES ($1)', [requestedIndex], (error, response)=>{
-    if(error) {
-      console.error(error.stack);
-    }
-    if(response) {
-      console.log('value inserted: ' + JSON.stringify(response));
-    }
-  });
+  pgPool.query('INSERT INTO values (number) VALUES ($1)', [requestedIndex])
+    .then(res => {
+      console.log('value inserted: ' + JSON.stringify(res));
+    })
+    .catch(e => {
+      console.error('ERROR:PG:INSERT into values, number: ' + requestedIndex);
+      pgStatus = e;
+      console.error(e);
+    });
   res.send({ working: true, index: requestedIndex });
 });
 
