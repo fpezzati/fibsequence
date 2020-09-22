@@ -37,9 +37,12 @@ services:
       - PGPORT=5432
       - PGDATABASE=postgres
     depends_on:
-      - redis
-      - postgres
-      - fibworker
+      redis:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      fibworker:
+        condition: service_started
     ports:
       - '9229:9229'
   fibclient:
