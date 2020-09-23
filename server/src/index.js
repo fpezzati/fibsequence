@@ -103,7 +103,7 @@ httpsrv.post("/values", async (req, res) => {
   redisPublisher.publish('insert', requestedIndex);
   pgPool.query('INSERT INTO values (number) VALUES ($1)', [requestedIndex])
     .then(res => {
-      console.log('value inserted: ' + JSON.stringify(res));
+      console.log('value inserted: ' + requestedIndex);
     })
     .catch(e => {
       console.error('ERROR:PG:INSERT into values, number: ' + requestedIndex);
