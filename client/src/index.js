@@ -30,7 +30,10 @@ var app = (function() {
         handle: function(event, model) {
           m.request({ url: '/api/values/all', method: 'GET'})
           .then(function(data) {
-              console.log('loadIndexes ' + JSON.stringify(data));
+            console.log('loadIndexes ' + JSON.stringify(data));
+            data.forEach(value => {
+              model.fibSeenIndexes[value.number] = value.number;
+            });
           })
           .catch(function(err) {
             console.log('loadIndexes ' + JSON.stringify(err));
@@ -41,7 +44,10 @@ var app = (function() {
         handle: function(event, model) {
           m.request({ url: '/api/values/current', method: 'GET'})
           .then(function(data) {
-              console.log('loadValues ' + JSON.stringify(data));
+            console.log('loadValues ' + JSON.stringify(data));
+            Object.keys(data).map((key) => {
+              model.calculatedValues[Number(key)] = data[key];
+            });
           })
           .catch(function(err) {
             console.log('loadValues ' + JSON.stringify(err));

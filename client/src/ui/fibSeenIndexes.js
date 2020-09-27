@@ -2,6 +2,7 @@ const m = require('mithril');
 var fibSeenIndexes = (function(){
   return {
     view: function(vnode) {
+      console.log('fibSeenIndexes component: ' + JSON.stringify(vnode.attrs));
       return m('div', [
         m('h2', 'Seen Fib indexes'),
         (Array.isArray(vnode.attrs.fibSeenIndexes) && vnode.attrs.fibSeenIndexes.length) ?
