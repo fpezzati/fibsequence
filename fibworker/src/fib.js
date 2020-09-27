@@ -2,11 +2,10 @@ export default {
   fibNumbers: {
     '0': '0',
     '1': '1',
-    '2':'1'
+    '2': '1'
   },
 
   getNumberAt: function(index) {
-    console.log('fib.getNumberAt index: ' + index);
     if(!(typeof this.fibNumbers[index] === 'undefined')) return this.fibNumbers[index];
     var result = this.sumTwoStrings(this.getNumberAt(index-2), this.getNumberAt(index-1), '0')
     this.fibNumbers[index] = result;
@@ -16,7 +15,6 @@ export default {
   sumTwoStrings: function(addend1 = '0', addend2 = '0', carriedIn = '0') {
     if(addend1.length < 1) addend1 = '0';
     if(addend2.length < 1) addend2 = '0';
-//    console.log('sumTwoStrings(' + addend1 + ', ' + addend2 + ', ' + carriedIn + ')');
     if(addend1.length === 1 && addend2.length === 1) {
       return (Number(addend1) + Number(addend2) + Number(carriedIn)).toString();
     }
