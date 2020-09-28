@@ -21,6 +21,8 @@
   "author": "fpezzati@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "mithril": "^2.0.4"
+    "css-loader": "^4.3.0",
+    "mithril": "^2.0.4",
+    "style-loader": "^1.2.1"
   }
 }

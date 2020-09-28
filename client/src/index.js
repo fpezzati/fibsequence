@@ -5,6 +5,7 @@ import fibIndexSubmit from './ui/fibIndexSubmit';
 import fibSeenIndexes from './ui/fibSeenIndexes';
 import fibComputedValues from './ui/fibComputedValues';
 import Eventbus from './eventbus';
+import "./index.css";
 
 var app = (function() {
   function loadFibValuesAndIndexes(eventbus) {

@@ -8,7 +8,7 @@ var fibSeenIndexes = (function(){
         (Array.isArray(vnode.attrs.fibSeenIndexes) && vnode.attrs.fibSeenIndexes.length) ?
           m('div',
             vnode.attrs.fibSeenIndexes.map((seenIndex) => {
-              return m('span', seenIndex)
+              return m('span', { class: "computed-value" }, seenIndex)
             })
           )
         : m('div', 'No seen indexes for now :(')
