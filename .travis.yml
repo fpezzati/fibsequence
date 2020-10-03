@@ -18,5 +18,17 @@ scripts:
 after_success:
   - docker build -t fpezzati/fibsequence_fibworker ./fibworker -f ./fibworker/Dockerfile.prod
   - docker build -t fpezzati/fibsequence_client ./client -f ./client/Dockerfile.prod
-  - docker build -t fpezzati/fibserver ./server -f ./server/Dockerfile.prod
-  - docker build -t fpezzati/fibnginx ./nginx -f ./nginx/Dockerfile.prod
+  - docker build -t fpezzati/fibsequence_server ./server -f ./server/Dockerfile.prod
+  - docker build -t fpezzati/fibsequence_nginx ./nginx -f ./nginx/Dockerfile.prod
+# loggin into docker
+  - echo "$dockerpwd" | docker login -u "$dockerusr" --password-stdin
+# pushing images to docker hub
+  - docker push fpezzati/fibsequence_fibworker
+  - docker push fpezzati/fibsequence_client
+  - docker push fpezzati/fibsequence_server
+  - docker push fpezzati/fibsequence_nginx
+
+#  on:
+#    branch: master
+#  access_key_id: $dockerusr
+#  secret_access_key: $dockerpwd
