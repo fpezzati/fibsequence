@@ -47,6 +47,8 @@ services:
       context: ./client
     volumes:
       - './client:/app'
+    environment:
+      - HOTRELOADPORT=8000
   fibworker:
     build:
       dockerfile: Dockerfile.dev

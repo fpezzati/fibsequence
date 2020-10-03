@@ -1,4 +1,5 @@
 const path = require('path');
+var sockjsPort = process.env.HOTRELOADPORT ? process.env.HOTRELOADPORT : 9000;
 module.exports = {
   entry: './src/index.js',
   module: {
@@ -26,6 +27,6 @@ module.exports = {
     port: 9000,
     host: '0.0.0.0',
     disableHostCheck: true,
-    sockPort: 8000
+    sockPort: sockjsPort
   }
 };
