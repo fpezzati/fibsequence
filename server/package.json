@@ -7,7 +7,7 @@
     "start": "webpack --watch",
     "start_no_docker": "webpack --mode=development --watch --config ./webpack.troubleshooting.config.js",
     "test": "node_modules/.bin/tape -r @babel/register test/**/*.test.js",
-    "build": "webpack --mode=production"
+    "prod": "webpack --mode=production && node ./bin/index.js"
   },
   "author": "fpezzati@gmail.com",
   "license": "ISC",
