@@ -25,6 +25,7 @@ module.exports = {
     compress: true,
     port: 9000,
     host: '0.0.0.0',
-    disableHostCheck: true
+    disableHostCheck: true,
+    sockPort: 8000
   }
 };
