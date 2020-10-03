@@ -7,7 +7,7 @@ services:
 
 before-install:
   - docker build -t fpezzati/fibworker_test -f ./fibworker/Dockerfile.dev ./fibworker
-  - docker build -t fpezzati/fibserver_test -f -/server/Dockerfile.dev ./server
+  - docker build -t fpezzati/fibserver_test -f ./server/Dockerfile.dev ./server
   - docker build -t fpezzati/fibclient_test -f ./client/Dockerfile.dev ./client
 
 scripts:
