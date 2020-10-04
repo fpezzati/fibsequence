@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Warining: no test specified\" && exit 0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
