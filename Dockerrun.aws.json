@@ -1,0 +1,38 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "fibclient",
+      "image": "fpezzati/fibsequence_client",
+      "hostname": "fibclient",
+      "essential": false
+    },
+    {
+      "name": "fibworker",
+      "image": "fpezzati/fibsequence_fibworker",
+      "hostname": "fibworker",
+      "essential": false
+    },
+    {
+      "name": "fibserver",
+      "image": "fpezzati/fibsequence_server",
+      "hostname": "fibserver",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "fpezzati/fibsequence_nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 8000,
+          "containerPort": 80
+        }
+      ],
+      "links": [
+        "fibclient", "fibserver"
+      ]
+    }
+  ]
+}

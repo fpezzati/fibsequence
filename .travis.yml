@@ -28,7 +28,15 @@ after_success:
   - docker push fpezzati/fibsequence_server
   - docker push fpezzati/fibsequence_nginx
 
-#  on:
-#    branch: master
-#  access_key_id: $dockerusr
-#  secret_access_key: $dockerpwd
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  regiorn: "us-east-2"
+  app: "fibsequence"
+  env: "Fibsequence-env"
+  bucket_name: "elasticbeanstalk-us-east-2-481819882433"
+  bucket_path: "fibsequencebucketpath"
+  on:
+    branch: master
+  access_key_id: $awsaccesskey
+  secret_access_key: $awssecretkey
