@@ -5,19 +5,22 @@
       "name": "fibclient",
       "image": "fpezzati/fibsequence_client",
       "hostname": "fibclient",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "fibworker",
       "image": "fpezzati/fibsequence_fibworker",
       "hostname": "fibworker",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "fibserver",
       "image": "fpezzati/fibsequence_server",
       "hostname": "fibserver",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "nginx",
@@ -32,7 +35,8 @@
       ],
       "links": [
         "fibclient", "fibserver"
-      ]
+      ],
+      "memory": 128
     }
   ]
 }
