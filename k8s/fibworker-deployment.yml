@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fibworker-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: fibworker
+  template:
+    metadata:
+      labels:
+        component: fibworker
+    spec:
+      containers:
+        - name: fibworker
+          image: fpezzati/fibsequence_fibworker
